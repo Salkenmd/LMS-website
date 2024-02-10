@@ -1,34 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
     <title>User Profile</title>
 </head>
 <body>
     <h1>User Profile</h1>
-    <form action="profile.php" method="post">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required><br><br>
-        
-        <label for="firstName">First Name:</label>
-        <input type="text" id="firstname" name="firstname" required><br><br>
-        
-        <label for="lastName">Last Name:</label>
-        <input type="text" id="lastname" name="lastname" required><br><br>
-        
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br><br>
+    <?php
+    session_start(); // Start the session
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br><br>
+    if (isset($_SESSION["userID"])) {
+        $userID = $_SESSION["userID"];
 
-        <label for="role">Role:</label>
-        <select id="role" name="role" required>
-            <option value="customer">Customer</option>
-            <option value="staff">Staff</option>
-        </select><br><br>
-        
-        <input type="submit" value="Save">
-    </form>
+        $host = "sql200.infinityfree.com";
+        $dbusername = "if0_35176689";
+        $dbpassword = "qQJY4USNIKZj6";
+        $database = "if0_35176689_db_libraryabb";
+        $conn = new mysqli($host, $dbusername, $dbpassword, $database);
+
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+        // Use prepared statements to prevent SQL injection
+        $sql = "SELECT User.*, UserRole.role FROM User
+                LEFT JOIN UserRole ON User.userID = UserRole.userID
+                WHERE User.userID=?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $userID);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            // User found, retrieve user information including role
+            $row = $result->fetch_assoc();
+            $username = htmlspecialchars($row["username"]); // Sanitize output to prevent XSS
+            $firstName = htmlspecialchars($row["firstName"]);
+            $lastName = htmlspecialchars($row["lastName"]);
+            $email = htmlspecialchars($row["email"]);
+            $role = htmlspecialchars($row["role"]); // Retrieve the user's role from the UserRole table
+
+            echo "Username: " . $username . "<br>";
+            echo "First Name: " . $firstName . "<br>";
+            echo "Last Name: " . $lastName . "<br>";
+            echo "Email: " . $email . "<br>";
+            echo "Role: " . $role . "<br>"; // Output the user's role
+        } else {
+            echo "User not found";
+        }
+
+        $stmt->close();
+        $conn->close();
+    } else {
+        // If userID is not set in the session, handle the case where the user is not logged in
+        echo "User is not logged in";
+    }
+    ?>
 </body>
 </html>

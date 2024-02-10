@@ -14,16 +14,20 @@ if (isset($_SESSION["userID"])) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    $sql = "SELECT * FROM User WHERE userID='$userID'";
-    $result = $conn->query($sql);
+    // Use prepared statements to prevent SQL injection
+    $sql = "SELECT * FROM User WHERE userID=?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $userID);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
         // User found, retrieve user information including role
         $row = $result->fetch_assoc();
-        $username = $row["username"];
-        $firstName = $row["firstName"];
-        $lastName = $row["lastName"];
-        $email = $row["email"];
+        $username = htmlspecialchars($row["username"]); // Sanitize output to prevent XSS
+        $firstName = htmlspecialchars($row["firstName"]);
+        $lastName = htmlspecialchars($row["lastName"]);
+        $email = htmlspecialchars($row["email"]);
         // Retrieve the role or any other information you need
 
         echo "Username: " . $username . "<br>";
@@ -35,6 +39,7 @@ if (isset($_SESSION["userID"])) {
         echo "User not found";
     }
 
+    $stmt->close();
     $conn->close();
 } else {
     // If userID is not set in the session, handle the case where the user is not logged in
