@@ -2,35 +2,37 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-$host = 'sql200.infinityfree.com';
-$db = 'if0_35176689_db_library';
-$user = 'if0_35176689';
-$pass = 'qQJY4USNIKZj6';
-$charset = 'utf8mb4';
 
-$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
-$opt = [
-    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    PDO::ATTR_EMULATE_PREPARES   => false,
-];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $host = 'sql200.infinityfree.com';
+    $db = 'if0_35176689_db_library';
+    $user = 'if0_35176689';
+    $pass = 'qQJY4USNIKZj6';
+    $charset = 'utf8mb4';
 
-$pdo = new PDO($dsn, $user, $pass, $opt);
+    $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+    $opt = [
+        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        PDO::ATTR_EMULATE_PREPARES   => false,
+    ];
 
-$sql = "
-    SELECT Book.BookID, Book.Title, Book.ISBN, Author.AuthorName, Genre.GenreName, Publisher.PublisherName, Book.PublicationYear, Book.Quantity
-    FROM Book
-    JOIN Genre ON Book.GenreID = Genre.GenreID
-    JOIN Publisher ON Book.PublisherID = Publisher.PublisherID
-    JOIN Author ON Book.AuthorID = Author.AuthorID
-    LIMIT 10
-";
+    $pdo = new PDO($dsn, $user, $pass, $opt);
 
-$stmt = $pdo->prepare($sql);
-$stmt->execute();
-$books = $stmt->fetchAll();
+    $sql = "
+        SELECT Book.BookID, Book.Title, Book.ISBN, Author.AuthorName, Genre.GenreName, Publisher.PublisherName, Book.PublicationYear, Book.Quantity
+        FROM Book
+        JOIN Genre ON Book.GenreID = Genre.GenreID
+        JOIN Publisher ON Book.PublisherID = Publisher.PublisherID
+        JOIN Author ON Book.AuthorID = Author.AuthorID
+        LIMIT 10
+    ";
 
-echo '
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute();
+    $books = $stmt->fetchAll();
+
+    echo '
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,27 +58,46 @@ echo '
 </head>
 <body>
     <div class="book-row">
-';
-
-foreach ($books as $book) {
-    echo '
-    <div class="book-item">
-        <img src="book.jpg" alt="' . htmlspecialchars($book['Title']) . '" class="book-image">
-        <div>
-            <h2>' . htmlspecialchars($book['Title']) . '</h2>
-            <p>Author: ' . htmlspecialchars($book['AuthorName']) . '</p>
-            <p>Genre: ' . htmlspecialchars($book['GenreName']) . '</p>
-            <p>Publisher: ' . htmlspecialchars($book['PublisherName']) . '</p>
-            <p>Publication Year: ' . htmlspecialchars($book['PublicationYear']) . '</p>
-            <p>Quantity: ' . htmlspecialchars($book['Quantity']) . '</p>
-            <button>Request</button>
-        </div>
-    </div>
     ';
-}
 
-echo '
+    foreach ($books as $book) {
+        echo '
+        <div class="book-item">
+            <img src="book.jpg" alt="' . htmlspecialchars($book['Title']) . '" class="book-image">
+            <div>
+                <h2>' . htmlspecialchars($book['Title']) . '</h2>
+                <p>Author: ' . htmlspecialchars($book['AuthorName']) . '</p>
+                <p>Genre: ' . htmlspecialchars($book['GenreName']) . '</p>
+                <p>Publisher: ' . htmlspecialchars($book['PublisherName']) . '</p>
+                <p>Publication Year: ' . htmlspecialchars($book['PublicationYear']) . '</p>
+                <p>Quantity: ' . htmlspecialchars($book['Quantity']) . '</p>
+                <button>Request</button>
+            </div>
+        </div>
+        ';
+    }
+
+    echo '
     </div>
 </body>
 </html>
 ';
+} else {
+    echo '
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books</title>
+</head>
+<body>
+    <h1>Welcome to the Library!</h1>
+    <p>Please click the button below to view the list of books.</p>
+    <form action="books.php" method="post">
+        <button type="submit">Show Books</button>
+    </form>
+</body>
+</html>
+';
+}

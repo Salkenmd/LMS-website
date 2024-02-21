@@ -1,24 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>Book Database</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books</title>
+    <style>
+        .book-row {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+        }
+        .book-item {
+            flex-shrink: 0;
+            margin-right: 16px;
+        }
+        .book-image {
+            width: 128px;
+            height: 192px;
+            object-fit: cover;
+        }
+    </style>
 </head>
 <body>
-	<header>
-		<h1>Book Database</h1>
-	</header>
-	<main>
-		<section id="books">
-			<!-- Books will be loaded here using JavaScript -->
-		</section>
-		<aside id="sidebar">
-			<!-- Sidebar content will be loaded here -->
-		</aside>
-	</main>
-	<footer>
-		<p>&copy; 2023 Book Database</p>
-	</footer>
-	<script src="script.js"></script>
+    <form action="Books.php" method="post">
+        <button type="submit">Show Books</button>
+    </form>
 </body>
 </html>
