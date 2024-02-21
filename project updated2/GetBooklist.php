@@ -18,7 +18,7 @@ if ($book_conn->connect_error) {
 
 // Get book data from database
 
-$sql = "SELECT Book.BookID, Book.Title, Genre.GenreName, Author.AuthorName, Publisher.PublisherName
+$sql = "SELECT Book.BookID, Book.Title, Genre.GenreName, Author.AuthorName, Publisher.PublisherName, Book.ImageURL
 
         FROM Book
 
