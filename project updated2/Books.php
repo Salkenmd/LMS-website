@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 $host = 'sql200.infinityfree.com';
 $db = 'if0_35176689_db_library';
 $user = 'if0_35176689';
@@ -15,8 +18,7 @@ $opt = [
 $pdo = new PDO($dsn, $user, $pass, $opt);
 
 $sql = "
-    SELECT Book.BookID, Book.Title, Book.ISBN, Author.AuthorID, Genre.GenreID, Publisher.PublisherID, Book.PublicationYear, Book.Quantity,
-           Genre.GenreName, Publisher.PublisherName, Author.AuthorName
+    SELECT Book.BookID, Book.Title, Book.ISBN, Author.AuthorName, Genre.GenreName, Publisher.PublisherName, Book.PublicationYear, Book.Quantity
     FROM Book
     JOIN Genre ON Book.GenreID = Genre.GenreID
     JOIN Publisher ON Book.PublisherID = Publisher.PublisherID
