@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Book</title>
+    <?php include("AddBook.php"); ?>
+</head>
+<body>
+    <h2>Add a New Book</h2>
+    <form action="AddBook.php" method="POST">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required><br><br>
+        <label for="author">Author:</label>
+        <input type="text" id="author" name="author" required><br><br>
+        <label for="isbn">ISBN:</label>
+        <input type="text" id="isbn" name="isbn" required><br><br>
+        <label for="genre">Genre:</label>
+        <select id="genre" name="genre" required>
+            <option value="1">Science Fiction</option>
+            <option value="2">Mystery</option>
+            <!-- Add more genre options dynamically from the database -->
+        </select><br><br>
+        <label for="publisher">Publisher:</label>
+        <select id="publisher" name="publisher" required>
+            <option value="1">Publisher A</option>
+            <option value="2">Publisher B</option>
+            <!-- Add more publisher options dynamically from the database -->
+        </select><br><br>
+        <label for="year">Publication Year:</label>
+        <input type="number" id="year" name="year" required><br><br>
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" required><br><br>
+        <!-- Input field for image URL -->
+        <label for="image-url">Image URL:</label>
+        <input type="text" id="image-url" name="image-url" required><br><br>
+
+        <input type="submit" value="Add Book">
+    </form>
+</body>
+</html>
