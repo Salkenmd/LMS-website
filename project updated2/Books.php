@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $pdo = new PDO($dsn, $user, $pass, $opt);
 
-    $sql ="SELECT Book.BookID, Book.Title, Book.ISBN, Author.AuthorName, Genre.GenreName, Publisher.PublisherName, Book.PublicationYear, Book.Quantity FROM Book JOIN Genre ON Book.GenreID = Genre.GenreID JOIN Publisher ON Book.PublisherID = Publisher.PublisherID JOIN Author ON Book.AuthorID = Author.AuthorID;"
+    $sql ="SELECT Book.BookID, Book.Title, Book.ISBN, Author.AuthorName, Genre.GenreName, Publisher.PublisherName, Book.PublicationYear, Book.Quantity FROM Book JOIN Genre ON Book.GenreID = Genre.GenreID JOIN Publisher ON Book.PublisherID = Publisher.PublisherID JOIN Author ON Book.AuthorID = Author.AuthorID;";
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
     $books = $stmt->fetchAll();
