@@ -34,11 +34,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             display: flex;
             flex-wrap: nowrap;
             overflow-x: auto;
+            width: 100%; /* Set the book-row div to 100% width */
         }
         .book-item {
             flex-shrink: 0;
             margin-right: 16px;
-            width: 300px;
+            width: 25%; /* Set the book-item divs to 25% width */
         }
         .book-image {
             display: none;
@@ -59,36 +60,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <p>Publisher: ' . htmlspecialchars($row['PublisherName']) . '</p>
                 <p>Publication Year: ' . htmlspecialchars($row['PublicationYear']) . '</p>
                 <p>Quantity: ' . htmlspecialchars($row['Quantity']) . '</p>
-                <button>Request</button>
-            </div>
-        </div>
-        ';
-    }
-
-    echo '
-    </div>
-</body>
-</html>
-';
-
-    mysqli_close($conn);
-} else {
-    echo '
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Books</title>
-</head>
-<body>
-    <h1>Welcome to the Library!</h1>
-    <p>Please click the button below to view the list of books.</p>
-    <form action="books.php" method="post">
-        <button type="submit">Show Books</button>
-    </form>
-</body>
-</html>
-';
-}
-?>
+                <
