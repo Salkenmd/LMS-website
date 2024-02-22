@@ -10,16 +10,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pass = 'qQJY4USNIKZj6';
     $charset = 'utf8mb4';
 
-    $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+    $dsn = ""; // Remove DSN
 
-    $pdo = new mysqli($host, $user, $pass, $db);
-
-    if ($pdo->connect_error) {
-        die("Connection failed: " . $pdo->connect_error);
+    $conn = mysqli_connect($host, $user, $pass, $db);
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
     }
 
+    mysqli_set_charset($conn, $charset);
+
     $sql = "SELECT Book.BookID, Book.Title, Book.ISBN, Author.AuthorName, Genre.GenreName, Publisher.PublisherName, Book.PublicationYear, Book.Quantity FROM Book JOIN Genre ON Book.GenreID = Genre.GenreID JOIN Publisher ON Book.PublisherID = Publisher.PublisherID JOIN Author ON Book.AuthorID = Author.AuthorID;";
-    $result = $pdo->query($sql);
+    $result = mysqli_query($conn, $sql);
 
     echo '
 <!DOCTYPE html>
@@ -37,6 +38,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .book-item {
             flex-shrink: 0;
             margin-right: 16px;
+            width: 300px;
+        }
+        .book-image {
+            display: none;
         }
     </style>
 </head>
@@ -44,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="book-row">
     ';
 
-    while ($row = $result->fetch_assoc()) {
+    while ($row = mysqli_fetch_assoc($result)) {
         echo '
         <div class="book-item">
             <div>
@@ -66,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </html>
 ';
 
-    $pdo->close();
+    mysqli_close($conn);
 } else {
     echo '
 <!DOCTYPE html>
