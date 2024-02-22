@@ -11,18 +11,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $charset = 'utf8mb4';
 
     $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
-    $opt = [
-        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        PDO::ATTR_EMULATE_PREPARES   => false,
-    ];
 
-    $pdo = new PDO($dsn, $user, $pass, $opt);
+    $pdo = new mysqli($host, $user, $pass, $db);
 
-    $sql ="SELECT Book.BookID, Book.Title, Book.ISBN, Author.AuthorName, Genre.GenreName, Publisher.PublisherName, Book.PublicationYear, Book.Quantity FROM Book JOIN Genre ON Book.GenreID = Genre.GenreID JOIN Publisher ON Book.PublisherID = Publisher.PublisherID JOIN Author ON Book.AuthorID = Author.AuthorID;";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute();
-    $books = $stmt->fetchAll();
+    if ($pdo->connect_error) {
+        die("Connection failed: " . $pdo->connect_error);
+    }
+
+    $sql = "SELECT Book.BookID, Book.Title, Book.ISBN, Author.AuthorName, Genre.GenreName, Publisher.PublisherName, Book.PublicationYear, Book.Quantity FROM Book JOIN Genre ON Book.GenreID = Genre.GenreID JOIN Publisher ON Book.PublisherID = Publisher.PublisherID JOIN Author ON Book.AuthorID = Author.AuthorID;";
+    $result = $pdo->query($sql);
 
     echo '
 <!DOCTYPE html>
@@ -41,28 +38,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             flex-shrink: 0;
             margin-right: 16px;
         }
-        .book-image {
-            width: 128px;
-            height: 192px;
-            object-fit: cover;
-        }
     </style>
 </head>
 <body>
     <div class="book-row">
     ';
 
-    foreach ($books as $book) {
+    while ($row = $result->fetch_assoc()) {
         echo '
         <div class="book-item">
-            <img src="book.jpg" alt="' . htmlspecialchars($book['Title']) . '" class="book-image">
             <div>
-                <h2>' . htmlspecialchars($book['Title']) . '</h2>
-                <p>Author: ' . htmlspecialchars($book['AuthorName']) . '</p>
-                <p>Genre: ' . htmlspecialchars($book['GenreName']) . '</p>
-                <p>Publisher: ' . htmlspecialchars($book['PublisherName']) . '</p>
-                <p>Publication Year: ' . htmlspecialchars($book['PublicationYear']) . '</p>
-                <p>Quantity: ' . htmlspecialchars($book['Quantity']) . '</p>
+                <h2>' . htmlspecialchars($row['Title']) . '</h2>
+                <p>Author: ' . htmlspecialchars($row['AuthorName']) . '</p>
+                <p>Genre: ' . htmlspecialchars($row['GenreName']) . '</p>
+                <p>Publisher: ' . htmlspecialchars($row['PublisherName']) . '</p>
+                <p>Publication Year: ' . htmlspecialchars($row['PublicationYear']) . '</p>
+                <p>Quantity: ' . htmlspecialchars($row['Quantity']) . '</p>
                 <button>Request</button>
             </div>
         </div>
@@ -74,6 +65,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </body>
 </html>
 ';
+
+    $pdo->close();
 } else {
     echo '
 <!DOCTYPE html>
