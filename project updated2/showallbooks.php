@@ -1,19 +1,15 @@
 <?php
+    // Connect to the database
 $host = "sql200.infinityfree.com";
 $dbusername = "if0_35176689";
 $dbpassword = "qQJY4USNIKZj6";
 $database = "if0_35176689_db_library";
 $conn = new mysqli($host, $dbusername, $dbpassword, $database);
+// Check connection
 if (!$conn) {
   die("Connection failed " . mysqli_connect_error());
 }
 if (isset($_POST["showbook"])) {
-    // Connect to the database
-
-
-// Check connection
-
-
 // Fetch all books from the Book table
 $sql = "SELECT Title, Quantity FROM Book";
 $result = mysqli_query($conn, $sql);
@@ -32,5 +28,4 @@ if (mysqli_num_rows($result) > 0) {
 }
 // Close the connection
 mysqli_close($conn);
-
 ?>
