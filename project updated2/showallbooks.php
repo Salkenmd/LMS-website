@@ -19,3 +19,4 @@ if (isset($_POST["showbooks"])) {
         echo "No books found.";
     }
 }
+?>
