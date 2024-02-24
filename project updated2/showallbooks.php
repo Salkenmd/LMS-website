@@ -1,3 +1,6 @@
+<?php
+if (isset($_POST["showbook"])) {
+    // Connect to the database
 $host = "sql200.infinityfree.com";
 $dbusername = "if0_35176689";
 $dbpassword = "qQJY4USNIKZj6";
@@ -27,3 +30,5 @@ if (mysqli_num_rows($result) > 0) {
 
 // Close the connection
 mysqli_close($conn);
+}
+?>
