@@ -1,6 +1,10 @@
 <?php
 // Connect to the database
-$conn = mysqli_connect("sql200.infinityfree.com", "if0_35176689", "qQJY4USNIKZj6", "if0_35176689_db_library");
+$host = "sql200.infinityfree.com";
+$dbusername = "if0_35176689";
+$dbpassword = "qQJY4USNIKZj6";
+$database = "if0_35176689_db_library";
+$conn = new mysqli($host, $dbusername, $dbpassword, $database);
 
 // Check connection
 if (!$conn) {
