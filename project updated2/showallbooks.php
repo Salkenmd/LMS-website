@@ -1,6 +1,3 @@
-<?php
-if (isset($_POST["showbook"])) {
-    // Connect to the database
 $host = "sql200.infinityfree.com";
 $dbusername = "if0_35176689";
 $dbpassword = "qQJY4USNIKZj6";
@@ -30,25 +27,3 @@ if (mysqli_num_rows($result) > 0) {
 
 // Close the connection
 mysqli_close($conn);
-} else {
-    echo "<!DOCTYPE html>
-    <html>
-    <head>
-        <title>Main Page</title>
-    </head>
-    <?php 
-    include("main.php");
-    include("showallbooks.php");
-    ?>
-    <body>
-        <form action="main.php" method="post">
-            <input type="text" name="search" placeholder="Search by title...">
-            <button type="submit" name="display_books">Display Books</button>
-        </form>
-        <form action="showallbooks.php" method="post">
-            <input type ="button" name="showbooks" value="Show Books">
-        </form>
-    </body>
-    </html>"
-}
-?>
