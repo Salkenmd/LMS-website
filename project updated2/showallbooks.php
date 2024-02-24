@@ -9,7 +9,7 @@ $conn = new mysqli($host, $dbusername, $dbpassword, $database);
 if (!$conn) {
   die("Connection failed " . mysqli_connect_error());
 }
-if (isset($_POST["showbook"])) {
+if (isset($_POST["showbooks"])) {
 // Fetch all books from the Book table
 $sql = "SELECT Title, Quantity FROM Book";
 $result = mysqli_query($conn, $sql);
