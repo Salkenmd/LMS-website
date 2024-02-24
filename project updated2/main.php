@@ -15,13 +15,13 @@
             <title>Main Page</title>
         </head>
         <?php 
-        include("main.php");
-        include("showallbooks.php");
+        include('main.php');
+        include('showallbooks.php');
         ?>
         <body>
-            <form action="main.php" method="post">
-                <input type="text" name="search" placeholder="Search by title...">
-                <button type="submit" name="display_books">Display Books</button>
+            <form action='main.php' method='post'>
+                <input type='text' name='search' placeholder='Search by title...'>
+                <button type='submit' name='display_books'>Display Books</button>
             </form>
         </body>
         </html>";
