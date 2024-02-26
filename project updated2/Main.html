@@ -3,14 +3,23 @@
 <head>
     <title>Main Page</title>
 </head>
-<?php 
-include("main.php");
-include("showallbooks.php");
-?>
 <body>
     <form action="main.php" method="post">
-        <input type="text" name="search" placeholder="Search by title...">
+        <input type="text" id="search-input" name="search" placeholder="Search by title...">
         <button type="submit" name="display_books">Display Books</button>
     </form>
+    <table id="books-table" border='1'>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Books will be displayed here -->
+        </tbody>
+    </table>
+    <button id="sort-button">Sort by Title</button>
+    <script src="script.js"></script>
 </body>
 </html>
