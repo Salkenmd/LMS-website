@@ -26,33 +26,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($conn->query($sql_user) === TRUE) {
         // Retrieve the auto-generated ID of the inserted user
         $userID = $conn->insert_id;
-    
-        // Store the userID in the session variable
-        $_SESSION["userID"] = $userID;
-    
-        // Insert role into Role table
-        $sql_role = "INSERT INTO Role (roleName) VALUES ('$role')";
-        if ($conn->query($sql_role) === TRUE) {
-            // Retrieve the auto-generated ID of the inserted role
-            $roleID = $conn->insert_id;
-    
-            // Insert the relationship into UserRoles table
-            $sql_user_role = "INSERT INTO UserRoles (UserID, RoleID) VALUES ('$userID', '$roleID')";
-            if ($conn->query($sql_user_role) === TRUE) {
-                echo "New user record and role created successfully";
-            } else {
-                echo "Error: " . $sql_user_role . "<br>" . $conn->error;
-            }
+
+        // Check if the role already exists in the Role table
+        $sql_check_role = "SELECT RoleID FROM Role WHERE RoleName = '$role'";
+        $result = $conn->query($sql_check_role);
+
+        if ($result->num_rows > 0) {
+            // If the role exists, retrieve the RoleID
+            $row = $result->fetch_assoc();
+            $roleID = $row["RoleID"];
         } else {
-            echo "Error: " . $sql_role . "<br>" . $conn->error;
+            // If the role doesn't exist, insert it into the Role table
+            $sql_role = "INSERT INTO Role (roleName) VALUES ('$role')";
+            if ($conn->query($sql_role) === TRUE) {
+                // Retrieve the auto-generated ID of the inserted role
+                $roleID = $conn->insert_id;
+            } else {
+                echo "Error: " . $sql_role . "<br>" . $conn->error;
+            }
         }
-    
+
+        // Insert the relationship between the user and the role into the UserRoles table
+        $sql_user_role = "INSERT INTO UserRoles (UserID, RoleID) VALUES ('$userID', '$roleID')";
+        if ($conn->query($sql_user_role) === TRUE) {
+            echo "New user record and role created successfully";
+        } else {
+            echo "Error: " . $sql_user_role . "<br>" . $conn->error;
+        }
+
         header("Location: welcome.php");
         exit();
     } else {
         echo "Error: " . $sql_user . "<br>" . $conn->error;
     }
-    
+
     $conn->close();
 } else {
     header("Location: Reg.html");

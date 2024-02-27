@@ -3,9 +3,25 @@ $host = "sql200.infinityfree.com";
 $dbusername = "if0_35176689";
 $dbpassword = "qQJY4USNIKZj6";
 $database = "if0_35176689_db_library";
+
+// Create a new database connection
 $conn = new mysqli($host, $dbusername, $dbpassword, $database);
+
+// Check if the connection was successful
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Define the SQL query
 $sql = "SELECT * FROM Book";
-$result = mysqli_query($conn, $sql);
+
+// Execute the SQL query
+$result = $conn->query($sql);
+
+// Check if the query was successful
+if (!$result) {
+    die("Query failed: " . $conn->error);
+}
 ?>
 
 <!DOCTYPE html>
@@ -14,6 +30,11 @@ $result = mysqli_query($conn, $sql);
     <title>Main Page</title>
 </head>
 <body>
+    <!-- Show a button that is only available for staff which will redirect to addbook.html -->
+    <?php if ($_SESSION['role'] == 'admin') { ?>
+        <a href="Add book.html" class="btn btn-primary">Add New Book</a><br/><br/>
+    <?php } ?>
+
     <form action="main.php" method="post">
         <input type="text" id="search-input" name="search" placeholder="Search by title...">
         <button type="submit" name="display_books">Display Books</button>
@@ -27,7 +48,8 @@ $result = mysqli_query($conn, $sql);
         </thead>
         <tbody>
             <?php
-            while ($row = mysqli_fetch_assoc($result)) {
+            // Loop through the query results and display each row
+            while ($row = $result->fetch_assoc()) {
                 echo "<tr><td>" . htmlspecialchars($row['Title']) . "</td><td>" . htmlspecialchars($row['Quantity']) . "</td></tr>";
             }
             ?>
@@ -39,5 +61,6 @@ $result = mysqli_query($conn, $sql);
 </html>
 
 <?php
+// Close the database connection
 $conn->close();
 ?>
