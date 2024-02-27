@@ -78,3 +78,22 @@
     transform: scaleX(1);
     transform-origin: left;
 }
+
+.home-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.home-button:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
