@@ -13,7 +13,7 @@ session_start();
 require_once 'config.php';
 
 if (!isset($_SESSION["userID"])) {
-    header("location: login.php");
+    header("location: log.html");
     exit;
 }
 
