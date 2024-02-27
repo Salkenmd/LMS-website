@@ -1,65 +1,69 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>User Data Form</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="profile.css">
 </head>
 <body>
-    <?php
-    // Start the session
-    session_start();
 
-    // Check if the user is logged in
-    if(!isset($_SESSION["userID"])) {
-      header("Location: log.html"); // Redirect to the login page if the user is not logged in
-      exit();
-    }
+<?php
+session_start();
+require_once 'config.php';
 
-    // Connect to the database
-    $host = "sql200.infinityfree.com";
-    $dbusername = "if0_35176689";
-    $dbpassword = "qQJY4USNIKZj6";
-    $database = "if0_35176689_db_libraryabb";
-    $conn = new mysqli($host, $dbusername, $dbpassword, $database);
+if (!isset($_SESSION["userID"])) {
+    header("location: login.php");
+    exit;
+}
 
-    if ($conn->connect_error) {
-      die("Connection failed: " . $conn->connect_error);
-    }
+$userID = $_SESSION["userID"];
 
-    // Retrieve the user data
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Retrieve the userID of the currently logged-in user
-        $userID = $_SESSION["userID"];
+$sql = "SELECT User.*, Role.RoleName FROM User INNER JOIN User_Role ON User.UserID = User_Role.UserID INNER JOIN Role ON User_Role.RoleID = Role.RoleID WHERE User.UserID = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $userID);
+$stmt->execute();
+$result = $stmt->get_result();
 
-        // Your database query logic to retrieve user data goes here
-        // For example, using prepared statements to prevent SQL injection
-        $sql = "SELECT * FROM User WHERE userID = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $userID);
-        $stmt->execute();
-        $result = $stmt->get_result();
+if ($result->num_rows > 0) {
+    $user = $result->fetch_assoc();
+    echo '
+    <div class="profile-container">
+        <div class="profile-content">
+            <h1>User Profile</h1>
+            <form method="post" action="update_profile.php">
+                <div class="profile-field">
+                    <label for="username">Username:</label>
+                    <span id="username">' . htmlspecialchars($user["Username"]) . '</span>
+                </div>
+                <div class="profile-field">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" id="firstName" name="firstName" value="' . htmlspecialchars($user["FirstName"]) . '">
+                </div>
+                <div class="profile-field">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" id="lastName" name="lastName" value="' . htmlspecialchars($user["LastName"]) . '">
+                </div>
+                <div class="profile-field">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" value="' . htmlspecialchars($user["Email"]) . '">
+                </div>
+                <div class="profile-field">
+                    <label for="role">Role:</label>
+                    <span id="role">' . htmlspecialchars($user["RoleName"]) . '</span>
+                </div>
+                <button type="submit" name="update_profile" class="profile-button">Edit</button>
+            </form>
+        </div>
+    </div>
+    ';
+} else {
+    echo "No user found";
+}
 
-        if ($result->num_rows > 0) {
-            // Output data of the user
-            $row = $result->fetch_assoc();
-            echo "<h1>User Profile</h1>";
-            echo "<p>Username: " . $row["username"] . "</p>";
-            echo "<p>First Name: " . $row["firstName"] . "</p>";
-            echo "<p>Last Name: " . $row["lastName"] . "</p>";
-            echo "<p>Email: " . $row["email"] . "</p>";
-            // You can display more user information here
-        } else {
-            echo "No user found";
-        }
+$stmt->close();
+$conn->close();
+?>
 
-        $stmt->close(); // Close the prepared statement
-    }
-
-    $conn->close(); // Close the database connection
-    ?>
-
-    <h1>Retrieve User Data</h1>
-    <form action="profile.php" method="POST">
-        <button type="submit">Retrieve User Data</button>
-    </form>
 </body>
 </html>
