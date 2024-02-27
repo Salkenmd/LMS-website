@@ -2,7 +2,7 @@
 $host = "sql200.infinityfree.com";
 $dbusername = "if0_35176689";
 $dbpassword = "qQJY4USNIKZj6";
-$database = "if0_35176689_db_library";
+$database = "if0_35176689_db_libraryabb";
 
 // Create a new database connection
 $conn = new mysqli($host, $dbusername, $dbpassword, $database);
