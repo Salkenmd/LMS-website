@@ -9,8 +9,8 @@
 <body>
 
 <?php
-session_start();
 require_once 'config.php';
+session_start();
 
 if (!isset($_SESSION["userID"])) {
     header("location: log.html");
@@ -54,6 +54,7 @@ if ($result->num_rows > 0) {
                 </div>
                 <button type="submit" name="update_profile" class="profile-button">Edit</button>
             </form>
+            <a href="main.php" class="profile-button">Go to Main Page</a>
         </div>
     </div>
     ';
