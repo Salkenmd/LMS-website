@@ -19,7 +19,7 @@ if (!isset($_SESSION["userID"])) {
 
 $userID = $_SESSION["userID"];
 
-$sql = "SELECT User.*, Role.RoleName FROM User INNER JOIN User_Role ON User.UserID = User_Role.UserID INNER JOIN Role ON User_Role.RoleID = Role.RoleID WHERE User.UserID = ?";
+$sql = "SELECT User *, Role.RoleName FROM User INNER JOIN UserRole ON User.UserID = UserRole.UserID INNER JOIN Role ON UserRole.RoleID = Role.RoleID WHERE User.UserID = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $userID);
 $stmt->execute();
