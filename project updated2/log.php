@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION["userID"] = $userID;
 
         echo "Login successful";
-        header("Location: Profilepage.html");
+        header("Location: profile.php");
         exit;
     } else {
         echo "Invalid username or password";
