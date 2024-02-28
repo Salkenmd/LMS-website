@@ -9,8 +9,19 @@
 <body>
 
 <?php
-include('config.php');
-require_once 'config.php';
+$host = "sql200.infinityfree.com";
+$dbusername = "if0_35176689";
+$dbpassword = "qQJY4USNIKZj6";
+$database = "if0_35176689_db_libraryabb";
+
+// Create a new database connection
+$conn = new mysqli($host, $dbusername, $dbpassword, $database);
+
+// Check if the connection was successful
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
 session_start();
 
 if (!isset($_SESSION["userID"])) {
@@ -20,7 +31,7 @@ if (!isset($_SESSION["userID"])) {
 
 $userID = $_SESSION["userID"];
 
-$sql = "SELECT User.User, Role.RoleName 
+$sql = "SELECT User.*, Role.RoleName 
         FROM User 
         INNER JOIN UserRole ON User.UserID = UserRole.UserID 
         INNER JOIN Role ON UserRole.RoleID = Role.RoleID 
