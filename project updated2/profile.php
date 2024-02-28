@@ -51,11 +51,11 @@ if ($result->num_rows > 0) {
                 </div>
                 <div class="profile-field">
                     <label for="firstName">First Name:</label>
-                    <input type="text" id="firstName" name="firstName" value="' . htmlspecialchars($user["firstname"]) . '">
+                    <input type="text" id="firstName" name="firstName" value="' . htmlspecialchars($user["FirstName"]) . '">
                 </div>
                 <div class="profile-field">
                     <label for="lastName">Last Name:</label>
-                    <input type="text" id="lastName" name="lastName" value="' . htmlspecialchars($user["lastname"]) . '">
+                    <input type="text" id="lastName" name="lastName" value="' . htmlspecialchars($user["LastName"]) . '">
                 </div>
                 <div class="profile-field">
                     <label for="email">Email:</label>
