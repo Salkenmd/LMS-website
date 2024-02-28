@@ -55,7 +55,7 @@ if ($result->num_rows > 0) {
                 </div>
                 <div class="profile-field">
                     <label for="lastName">Last Name:</label>
-                    <input type="text" id="lastName" name="lastName" value="' . htmlspecialchars($user["fastName"]) . '">
+                    <input type="text" id="lastName" name="lastName" value="' . htmlspecialchars($user["lastName"]) . '">
                 </div>
                 <div class="profile-field">
                     <label for="email">Email:</label>
