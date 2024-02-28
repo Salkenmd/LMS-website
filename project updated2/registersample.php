@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         // Insert the relationship between the user and the role into the UserRoles table
-        $sql_user_role = "INSERT INTO UserRoles (UserID, RoleID) VALUES ('$userID', '$roleID')";
+        $sql_user_role = "INSERT INTO UserRole (UserID, RoleID) VALUES ('$userID', '$roleID')";
         if ($conn->query($sql_user_role) === TRUE) {
             echo "New user record and role created successfully";
         } else {
