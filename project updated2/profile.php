@@ -46,19 +46,19 @@ if ($result->num_rows > 0) {
             <form method="post" action="update_profile.php">
                 <div class="profile-field">
                     <label for="username">Username:</label>
-                    <span id="username">' . htmlspecialchars($user["Username"]) . '</span>
+
+                    <span id="username">' . htmlspecialchars($user["username"]) . '</span>
                 </div>
                 <div class="profile-field">
-                    <label for="firstName">First Name:</label>
-                    <input type="text" id="firstName" name="firstName" value="' . htmlspecialchars($user["FirstName"]) . '">
+                    <label for="firstName">First Name:</label>                    <input type="text" id="firstName" name="firstName" value="' . htmlspecialchars($user["first_name"]) . '">
                 </div>
                 <div class="profile-field">
                     <label for="lastName">Last Name:</label>
-                    <input type="text" id="lastName" name="lastName" value="' . htmlspecialchars($user["LastName"]) . '">
+                    <input type="text" id="lastName" name="lastName" value="' . htmlspecialchars($user["last_name"]) . '">
                 </div>
                 <div class="profile-field">
                     <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" value="' . htmlspecialchars($user["Email"]) . '">
+                    <input type="email" id="email" name="email" value="' . htmlspecialchars($user["email"]) . '">
                 </div>
                 <div class="profile-field">
                     <label for="role">Role:</label>
