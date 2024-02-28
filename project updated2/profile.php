@@ -9,6 +9,7 @@
 <body>
 
 <?php
+include('config.php');
 require_once 'config.php';
 session_start();
 
@@ -19,7 +20,7 @@ if (!isset($_SESSION["userID"])) {
 
 $userID = $_SESSION["userID"];
 
-$sql = "SELECT User.*, Role.RoleName 
+$sql = "SELECT User.User, Role.RoleName 
         FROM User 
         INNER JOIN UserRole ON User.UserID = UserRole.UserID 
         INNER JOIN Role ON UserRole.RoleID = Role.RoleID 
