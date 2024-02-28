@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $roleID = $row["RoleID"];
         } else {
             // If the role doesn't exist, insert it into the Role table
-            $sql_role = "INSERT INTO Role (roleName) VALUES ('$role')";
+            $sql_role = "INSERT INTO Role (RoleName, RoleID) VALUES ('$role', '$roleID')";
             if ($conn->query($sql_role) === TRUE) {
                 // Retrieve the auto-generated ID of the inserted role
                 $roleID = $conn->insert_id;
@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "Error: " . $sql_user_role . "<br>" . $conn->error;
         }
 
-        header("Location: welcome.php");
+        header("Location: log.html");
         exit();
     } else {
         echo "Error: " . $sql_user . "<br>" . $conn->error;
