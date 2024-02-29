@@ -30,11 +30,6 @@ if (!$result) {
     <title>Main Page</title>
 </head>
 <body>
-    <!-- Show a button that is only available for staff which will redirect to addbook.html -->
-    <?php if ($_SESSION['role'] == 'admin') { ?>
-        <a href="Add book.html" class="btn btn-primary">Add New Book</a><br/><br/>
-    <?php } ?>
-
     <form action="main.php" method="post">
         <input type="text" id="search-input" name="search" placeholder="Search by title...">
         <button type="submit" name="display_books">Display Books</button>
