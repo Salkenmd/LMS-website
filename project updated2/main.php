@@ -30,6 +30,7 @@ if (!$result) {
     <title>Main Page</title>
 </head>
 <body>
+    <link rel="stylesheet" type="text/css" href="Main.css">
     <form action="main.php" method="post">
         <input type="text" id="search-input" name="search" placeholder="Search by title...">
         <button type="submit" name="display_books">Display Books</button>
