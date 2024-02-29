@@ -50,22 +50,24 @@ if (!$result) {
             ?>
         </tbody>
     </table>
-    <button id="sort-button">Sort by Title</button>
     <button id="profile-button" class="btn btn-primary">View Profile</button>
     <div id="profile-window" style="display:none;">
-        <?php include 'profile.php'; ?>
+        <?php include('profile.php'); ?>
     </div>
-    <script src="script.js"></script>
     <script>
-    document.getElementById('profile-button').addEventListener('click', function() {
+        document.getElementById('profile-button').addEventListener('click', function() {
   var profileWindow = document.getElementById('profile-window');
   if (profileWindow.style.display === 'none' || profileWindow.style.display === '') {
     profileWindow.style.display = 'block';
   } else {
     profileWindow.style.display = 'none';
   }
-    });
-</script>
+});
+    </script>
+    
+    <button id="sort-button">Sort by Title</button>
+    <script src="script.js"></script>
+    
 </body>
 </html>
 
