@@ -28,7 +28,7 @@ if (!isset($_SESSION["userID"])) {
     header("location: log.html");
     exit;
 }
-
+$sesrole= $_SESSION["role"];
 $userID = $_SESSION["userID"];
 
 $sql = "SELECT User.*, Role.RoleName FROM User INNER JOIN UserRole ON User.UserID = UserRole.UserID INNER JOIN Role ON UserRole.RoleID = Role.RoleID WHERE User.UserID = ?";
