@@ -1,4 +1,5 @@
 <?php
+session_start();
 $host = "sql200.infinityfree.com";
 $dbusername = "if0_35176689";
 $dbpassword = "qQJY4USNIKZj6";
@@ -21,6 +22,13 @@ $result = $conn->query($sql);
 // Check if the query was successful
 if (!$result) {
     die("Query failed: " . $conn->error);
+}
+
+// Store the book ID in the session when a title is clicked
+if (isset($_GET['title'])) {
+    $_SESSION['selectedBookTitle'] = $_GET['title'];
+    header('Location: book.php');
+    exit;
 }
 ?>
 
@@ -57,17 +65,24 @@ if (!$result) {
     </div>
     <script>
         document.getElementById('profile-button').addEventListener('click', function() {
-  var profileWindow = document.getElementById('profile-window');
-  if (profileWindow.style.display === 'none' || profileWindow.style.display === '') {
-    profileWindow.style.display = 'block';
-  } else {
-    profileWindow.style.display = 'none';
-  }
-});
+            var profileWindow = document.getElementById('profile-window')
+            if (profileWindow.style.display === 'none' || profileWindow.style.display === '') {
+                profileWindow.style.display = 'block'
+            } else {
+                profileWindow.style.display = 'none'
+            }
+        });
     </script>
-    
+    <h2>Book List</h2>
+    <ul id="book-list"></ul>
+    <script>
+        const bookList = document.getElementById('book-list')
+        // Loop through the query results and add each title as a list item
+        <?php while ($row = $result->fetch_assoc()) { ?>
+            bookList.innerHTML += `<li><a href="main.php?title=${encodeURIComponent(htmlspecialchars($row['Title']))}">${htmlspecialchars($row['Title'])}</a></li>`;
+        <?php } ?>
+    </script>
     <button id="sort-button">Sort by Title</button>
     <script src="script.js"></script>
-    
 </body>
 </html>
