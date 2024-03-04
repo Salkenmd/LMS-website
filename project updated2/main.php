@@ -16,6 +16,12 @@ if ($conn->connect_error) {
 // Define the SQL query
 $sql = "SELECT * FROM Book";
 
+if (isset($_POST['save_book_title'])) {
+    $bookTitle = $_POST['book_title'];
+    $_SESSION['selectedBookTitle'] = $bookTitle;
+    header('Location: book.php');
+    exit;
+}
 // Execute the SQL query
 $result = $conn->query($sql);
 
@@ -25,11 +31,6 @@ if (!$result) {
 }
 
 // Store the book ID in the session when a title is clicked
-if (isset($_GET['title'])) {
-    $_SESSION['selectedBookTitle'] = $_GET['title'];
-    header('Location: book.php');
-    exit;
-}
 ?>
 
 <!DOCTYPE html>
@@ -42,6 +43,10 @@ if (isset($_GET['title'])) {
     <form action="main.php" method="post">
         <input type="text" id="search-input" name="search" placeholder="Search by title...">
         <button type="submit" name="display_books">Display Books</button>
+    </form>
+    <form action="main.php" method="post">
+    <input type=" id="book-title-input" name="book_title" placeholder="Enter book title...">
+    <button type="submit" name="save_book_title">Save Book Title</button>
     </form>
     <table id="books-table" border='1'>
         <thead>

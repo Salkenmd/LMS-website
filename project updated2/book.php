@@ -1,82 +1,84 @@
 <?php
 session_start();
-$host = "sql200.infinityfree.com";
-$dbusername = "if0_35176689";
-$dbpassword = "qQJY4USNIKZj6";
-$database = "if0_35176689_db_library";
 
-// Create a new database connection
+$host = "your_host";
+$dbusername = "your_dbusername";
+$dbpassword = "your_dbpassword";
+$database = "your_database";
+
+$bookId = isset($_POST['book_id']) ? $_POST['book_id'] : null;
+
+// Connect to the database
 $conn = new mysqli($host, $dbusername, $dbpassword, $database);
 
-// Check if the connection was successful
+// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Get the book ID from the session
-$bookId = isset($_SESSION['selectedBookTitle']) ? (int)$_SESSION['selectedBookTitle'] : 0;
+// Retrieve information about the selected book based on the book ID
+if ($bookId) {
+    $sql = "SELECT Book.BookID, Book.Title, Book.ISBN, Book.AuthorID, Book.GenreID, Book.PublisherID, Book.PublicationYear, Book.Quantity, Author.AuthorName, Genre.GenreName, Publisher.PublisherName
+    FROM Book
+    INNER JOIN Author ON Book.AuthorID = Author.AuthorID
+    INNER JOIN Genre ON Book.GenreID = Genre.GenreID
+    INNER JOIN Publisher ON Book.PublisherID = Publisher.PublisherID
+    WHERE Book.BookID = ?";
 
-// Define the SQL query
-$sql = "SELECT Book.Title, Book.PublicationYear, Genre.GenreName, Publisher.PublisherName, Author.AuthorName, Book.Quantity, User.Username
-        FROM Book
-        JOIN Genre ON Book.GenreID = Genre.GenreID
-        JOIN Publisher ON Book.PublisherID = Publisher.PublisherID
-        JOIN Author ON Book.AuthorID = Author.AuthorID
-        JOIN (SELECT BookID, SUM(Quantity) as Quantity FROM BookRequest GROUP BY BookID) br ON Book.BookID = br.BookID
-        JOIN User ON Book.UserID = User.UserID
-        WHERE Book.BookID = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $bookId);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-// Prepare the statement
-$stmt = $conn->prepare($sql);
+    $book = $result->fetch_assoc();
 
-// Bind the parameter
-$stmt->bind_param("i", $bookId);
+    // Check if the book exists and if there is enough quantity
+    if ($book && $book['Quantity'] > 0) {
+        // Decrease the quantity of the book by 1
+        $sql = "UPDATE Book SET Quantity = Quantity - 1 WHERE BookID = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $bookId);
+        $stmt->execute();
 
-// Set the value of the parameter
-$bookId = $_SESSION['selectedBookTitle'];
-
-// Execute the statement
-$stmt->execute();
-
-// Bind the result variables
-$stmt->bind_result($book['Title'], $book['PublicationYear'], $book['GenreName'], $book['PublisherName'], $book['AuthorName'], $book['Quantity'], $book['Username']);
-
-// Check if the query was successful
-if (!$stmt) {
-    die("Query failed: " . $conn->error);
+        // Close the statement and the connection
+        $stmt->close();
+    } else {
+        // Handle the case when the book does not exist or there is no quantity left
+        header("Location: error.php?error=Book not found or no quantity left.");
+        exit;
+    }
+} else {
+    // Handle the case when the book ID is not provided
+    header("Location: error.php?error=Book ID not provided.");
+    exit;
 }
 
-// Fetch the book data
-$stmt->fetch();
-
-// Close the prepared statement
-$stmt->close();
-
-// Close the database connection
-$conn->close();
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Book Page</title>
+    <title>Book</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    <link rel="stylesheet" type="text/css" href="Main.css">
-    <h1><?php echo htmlspecialchars($book['Title']); ?></h1>
-    <p>Author: <?php echo htmlspecialchars($book['AuthorName']); ?></p>
-    <p>Year: <?php echo htmlspecialchars($book['PublicationYear']); ?></p>
-    <p>Genre: <?php echo htmlspecialchars($book['GenreName']); ?></p>
-    <p>Publisher: <?php echo htmlspecialchars($book['PublisherName']); ?></p>
-    <p>Username: <?php echo htmlspecialchars($book['Username']); ?></p>
-    <p>Quantity: <?php echo htmlspecialchars($book['Quantity']); ?></p>
-
-    <!-- Add a request button if the user is logged in and the book has quantity -->
-    <?php if (isset($_SESSION['username']) && $book['Quantity'] > 0): ?>
-        <form action="request.php" method="post">
-            <input type="hidden" name="bookId" value="<?php echo htmlspecialchars($bookId); ?>">
-            <button type="submit" name="request_book">Request Book</button>
-        </form>
-    <?php endif; ?>
+    <div class='book-container'>
+        <h1 class='book-title'><?php echo htmlspecialchars($book['Title']); ?></h1>
+        <div class='book-info'>
+            <p>Author: <?php echo htmlspecialchars($book['AuthorName']); ?></p>
+            <p>Year: <?php echo htmlspecialchars($book['PublicationYear']); ?></p>
+            <p>Publisher: <?php echo htmlspecialchars($book['PublisherName']); ?></p>
+            <p>Username: <?php echo htmlspecialchars($_SESSION['username']); ?></p>
+        </div>
+        <div class='request-button-container'>
+            <form action='request.php' method='post'>
+                <input type='hidden' name='book_id' value='<?php echo $book['BookID']; ?>'>
+                <button type='submit' name='request_book' class='request-button'>Request</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
+
+<?php
+$conn->close();
+?>
