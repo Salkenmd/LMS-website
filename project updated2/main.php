@@ -19,7 +19,7 @@ $sql = "SELECT * FROM Book";
 if (isset($_POST['save_book_title'])) {
     $bookTitle = $_POST['book_title'];
     $_SESSION['selectedBookTitle'] = $bookTitle;
-    header('book.php');
+    header("Location: book.php");
     exit;
 }
 // Execute the SQL query
