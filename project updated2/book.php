@@ -1,10 +1,10 @@
 <?php
 session_start();
 
-$host = "your_host";
-$dbusername = "your_dbusername";
-$dbpassword = "your_dbpassword";
-$database = "your_database";
+$host = "sql200.infinityfree.com";
+$dbusername = "if0_35176689";
+$dbpassword = "qQJY4USNIKZj6";
+$database = "if0_35176689_db_library";
 
 $bookId = isset($_POST['book_id']) ? $_POST['book_id'] : null;
 
