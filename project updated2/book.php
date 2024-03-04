@@ -19,11 +19,11 @@ if ($conn->connect_error) {
 // Retrieve information about the selected book based on the book ID
 if ($bookId) {
     $sql = "SELECT Book.BookID, Book.Title, Book.ISBN, Book.AuthorID, Book.GenreID, Book.PublisherID, Book.PublicationYear, Book.Quantity, Author.AuthorName, Genre.GenreName, Publisher.PublisherName
-    FROM Book
-    INNER JOIN Author ON Book.AuthorID = Author.AuthorID
-    INNER JOIN Genre ON Book.GenreID = Genre.GenreID
-    INNER JOIN Publisher ON Book.PublisherID = Publisher.PublisherID
-    WHERE Book.BookID = ?";
+            FROM Book
+            INNER JOIN Author ON Book.AuthorID = Author.AuthorID
+            INNER JOIN Genre ON Book.GenreID = Genre.GenreID
+            INNER JOIN Publisher ON Book.PublisherID = Publisher.PublisherID
+            WHERE Book.BookID = ?";
 
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $bookId);
@@ -53,6 +53,8 @@ if ($bookId) {
     exit;
 }
 
+// Close the connection
+$conn->close();
 ?>
 <!DOCTYPE html>
 <html>
@@ -78,7 +80,3 @@ if ($bookId) {
     </div>
 </body>
 </html>
-
-<?php
-$conn->close();
-?>
