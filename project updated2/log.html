@@ -3,21 +3,21 @@
     <head>
         <meta charset="UTF-8">
         <meta name = "viewport" content ="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="logcss.css">
-        <title>Login</title>
-        <?php include('log.php'); ?>
+        <link rel="stylesheet" href="logcss.css"> <!-- Include the CSS file for styling the login page -->
+        <title>Login</title> <!-- Set the title of the page -->
+        <?php include('log.php'); ?> <!-- Include the PHP code for handling the login form submission -->
     </head>
     <body>
-        <h2 id="h2log">Sign Up</h2>
-        <div>
-        <form action="log.php" method="post" id="logform">
-        <h1 id="h1flog">Log In</h1>
-        <label class="label-with-animation" for="username" id="usernamelabel">Username:</label>
-        <label class="label-with-animation" for="password" id="passwordlabel">Password</label>
-        <input type="text" id="username" name="username" required placeholder="Username">
-        <input type="text" id ="password" name ="password" required placeholder="Password">
-        <button type="submit">Log In</button>
-        </form>
+        <h2 id="h2log">Sign Up</h2> <!-- Display a header for the sign-up section -->
+        <div> <!-- Create a container for the login form -->
+            <form action="log.php" method="post" id="logform"> <!-- Create a form for the user to input their login credentials -->
+                <h1 id="h1flog">Log In</h1> <!-- Display a header for the login section -->
+                <label class="label-with-animation" for="username" id="usernamelabel">Username:</label> <!-- Display a label for the username input field -->
+                <label class="label-with-animation" for="password" id="passwordlabel">Password</label> <!-- Display a label for the password input field -->
+                <input type="text" id="username" name="username" required placeholder="Username"> <!-- Create a text input field for the user to enter their username -->
+                <input type="text" id ="password" name ="password" required placeholder="Password"> <!-- Create a text input field for the user to enter their password -->
+                <button type="submit">Log In</button> <!-- Create a submit button for the user to submit their login credentials -->
+            </form>
         </div>
     </body>
 </html>

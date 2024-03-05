@@ -1,7 +1,9 @@
+/* Define the styles for the profile container */
 .profile-container {
     text-align: center;
 }
 
+/* Define the styles for the profile content */
 .profile-content {
     width: 400px;
     padding: 40px;
@@ -11,22 +13,26 @@
     margin: 0 auto;
 }
 
+/* Define the styles for each profile field */
 .profile-field {
     margin-bottom: 16px;
 }
 
+/* Define the styles for the label of each profile field */
 .profile-field label {
     display: block;
     margin-bottom: 8px;
     color: rgb(98, 0, 255);
 }
 
+/* Define the styles for the value of each profile field */
 .profile-field span {
     display: block;
     color: #09ffbd;
     font-size: 23px;
 }
 
+/* Define the styles for the input field of each profile field */
 .profile-field input {
     width: 100%;
     padding: 10px;
@@ -38,10 +44,12 @@
     outline: none;
 }
 
+/* Define the styles for the placeholder of each profile field input */
 .profile-field input::placeholder {
     color: #fff;
 }
 
+/* Define the styles for the profile button */
 .profile-button {
     position: relative;
     overflow: hidden;
@@ -60,6 +68,7 @@
     border-radius: 5px;
 }
 
+/* Define the styles for the animation of the profile button */
 .profile-button:before {
     content: '';
     position: absolute;
@@ -74,11 +83,13 @@
     z-index: -1;
 }
 
+/* Define the styles for the animation of the profile button hover */
 .profile-button:hover:before {
     transform: scaleX(1);
     transform-origin: left;
 }
 
+/* Define the styles for the home button */
 .home-button {
     display: block;
     width: 100%;
@@ -94,6 +105,7 @@
     margin-top: 20px;
 }
 
+/* Define the styles for the home button hover */
 .home-button:hover {
     background-color: rgba(255, 255, 255, 0.4);
 }

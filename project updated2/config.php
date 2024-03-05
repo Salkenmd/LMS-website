@@ -1,4 +1,6 @@
 <?php
+
+// Define the database connection details
 $host = "sql200.infinityfree.com";
 $dbusername = "if0_35176689";
 $dbpassword = "qQJY4USNIKZj6";
