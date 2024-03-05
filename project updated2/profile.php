@@ -77,6 +77,9 @@ if ($result->num_rows > 0) {
 $stmt->close();
 $conn->close();
 ?>
-
+    <button><a href="Reg.html">Register</a></button>
+    <button><a href="main.php">Main page</a></button>
+    <button><a href="log.html">login</a></button>
+    <button><a href="profile.php">profile</a></button>
 </body>
 </html>

@@ -90,5 +90,10 @@ if (!$result) {
     </script>
     <button id="sort-button">Sort by Title</button>
     <script src="script.js"></script>
+    <button><a href="Reg.html">Register</a></button>
+    <button><a href="main.php">Main page</a></button>
+    <button><a href="log.html">login</a></button>
+    <button><a href="profile.php">profile</a></button>
+    <button><a href="Add book.html">Add Book</a></button>
 </body>
 </html>
