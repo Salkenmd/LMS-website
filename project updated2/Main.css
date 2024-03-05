@@ -1,7 +1,9 @@
+/* Box-sizing property for all elements to include padding and border in the element's total width and height */
 *, ::after, ::before {
     box-sizing: border-box;
 }
 
+/* Keyframes for fading in elements */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -13,6 +15,7 @@
     }
 }
 
+/* Keyframes for revealing letters in labels */
 @keyframes revealLetters {
     from {
         width: 0;
@@ -22,44 +25,49 @@
     }
 }
 
+/* Body styles */
 body {
-    background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
-    color: #fff;
-    font-family: 'Roboto', sans-serif;
-    letter-spacing: 0.05em;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+    background: linear-gradient(to right, #0f0c29, #302b63, #24243e); /* Background gradient */
+    color: #fff; /* Text color */
+    font-family: 'Roboto', sans-serif; /* Font family */
+    letter-spacing: 0.05em; /* Letter spacing */
+    margin: 0; /* Remove default margins */
+    padding: 0; /* Remove default padding */
+    display: flex; /* Display as flex container */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    height: 100vh; /* Full height of viewport */
 }
 
+/* Heading styles */
 h2 {
-    color: #09ffbd;
-    font-size: 2rem;
-    text-align: center;
-    margin-bottom: 2rem;
+    color: #09ffbd; /* Heading color */
+    font-size: 2rem; /* Font size */
+    text-align: center; /* Center text */
+    margin-bottom: 2rem; /* Margin bottom */
 }
 
+/* Form styles */
 form {
-    width: 400px;
-    padding: 40px;
-    background-color: rgba(0, 0, 0, 0.8);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-    position: relative;
-    overflow: hidden;
+    width: 400px; /* Form width */
+    padding: 40px; /* Padding */
+    background-color: rgba(0, 0, 0, 0.8); /* Background color with transparency */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Box shadow */
+    border-radius: 10px; /* Border radius */
+    position: relative; /* Positioning */
+    overflow: hidden; /* Hide overflowing content */
 }
 
+/* Label styles */
 label {
-    display: block;
-    margin-bottom: 0.5rem;
-    color: #00ffff;
-    font-size: 1.2rem;
-    position: relative;
+    display: block; /* Display as block */
+    margin-bottom: 0.5rem; /* Margin bottom */
+    color: #00ffff; /* Label color */
+    font-size: 1.2rem; /* Font size */
+    position: relative; /* Positioning */
 }
 
+/* Animation for label letters */
 .label-with-animation::before {
     content: "";
     display: inline-block;
@@ -68,6 +76,7 @@ label {
     animation: revealLetters 1.5s ease-out forwards;
 }
 
+/* Animation delay for each label */
 #usernamelabel::before {
     animation-delay: 0.5s;
 }
@@ -92,44 +101,46 @@ label {
     animation-delay: 1.5s;
 }
 
+/* Input styles */
 input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 1rem;
-    box-sizing: border-box;
-    border: none;
-    border-radius: 5px;
-    background-color: rgba(255, 255, 255, 0.2);
-    color: #fff;
-    font-size: 1rem;
-    transition: all 0.3s ease-in-out;
+    width: 100%; /* Full width */
+    padding: 10px; /* Padding */
+    margin-bottom: 1rem; /* Margin bottom */
+    box-sizing: border-box; /* Box sizing */
+    border: none; /* No border */
+    border-radius: 5px; /* Border radius */
+    background-color: rgba(255, 255, 255, 0.2); /* Background color with transparency */
+    color: #fff; /* Text color */
+    font-size: 1rem; /* Font size */
+    transition: all 0.3s ease-in-out; /* Transition */
 }
 
 input:focus {
-    outline: none;
-    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-    background-color: rgba(255, 255, 255, 0.3);
+    outline: none; /* No outline */
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* Box shadow on focus */
+    background-color: rgba(255, 255, 255, 0.3); /* Background color on focus with transparency */
 }
 
+/* Button styles */
 button {
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-    background: transparent;
-    outline: none;
-    border: 0;
-    color: #fff;
-    letter-spacing: 0.1em;
-    font-weight: bold;
-    font-size: 1.2rem;
-    padding: 14px 16px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
+    position: relative; /* Positioning */
+    overflow: hidden; /* Hide overflowing content */
+    z-index: 1; /* Z-index */
+    background: transparent; /* Transparent background */
+    outline: none; /* No outline */
+    border: 0; /* No border */
+    color: #fff; /* Text color */
+    letter-spacing: 0.1em; /* Letter spacing */
+    font-weight: bold; /* Font weight */
+    font-size: 1.2rem; /* Font size */
+    padding: 14px 16px; /* Padding */
+    cursor: pointer; /* Cursor pointer */
+    transition: all 0.3s ease-in-out; /* Transition */
 }
 
 button:before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%) scale(0);
+    content: ""; /* Empty content */
+    position: absolute; /* Positioning */
+    top: 50%; /* Top position */
+    transform: translateY(-50%) scale(0); /* Transform */
 }

@@ -1,11 +1,11 @@
-/*log.css */
-
+/* Universal box-sizing for all elements */
 *,
 ::after,
 ::before {
     box-sizing: border-box;
 }
 
+/* Keyframes for fading in elements */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -17,6 +17,7 @@
     }
 }
 
+/* Keyframes for revealing letters */
 @keyframes revealLetters {
     from {
         width: 0;
@@ -26,111 +27,119 @@
     }
 }
 
+/* Styles for the log-in form */
 #h2log {
     color: darkcyan;
     font-size: 24px;
     margin-bottom: 20px;
-    animation: fadeIn 0.5s ease-out;
+    animation: fadeIn 0.5s ease-out; /* Fade-in animation */
 }
 
 #h1flog {
     color: darkcyan;
     font-size: 24px;
     margin-bottom: 20px;
-    animation: fadeIn 1.5s ease-out;
+    animation: fadeIn 1.5s ease-out; /* Fade-in animation */
 }
- 
+
+/* Body styles */
 body {
-    background-color: #212121;
-    background: linear-gradient(to right, #000000, rgba(0, 0, 0, 0.5));
-    color: #fff;
-    font-family: monospace, serif;
-    letter-spacing: 0.05em;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+    background-color: #212121; /* Background color */
+    background: linear-gradient(to right, #000000, rgba(0, 0, 0, 0.5)); /* Gradient background */
+    color: #fff; /* Text color */
+    font-family: monospace, serif; /* Font family */
+    letter-spacing: 0.05em; /* Letter spacing */
+    margin: 0; /* Remove default margins */
+    padding: 0; /* Remove default padding */
+    display: flex; /* Display as flex container */
+    align-items: center; /* Align items vertically */
+    justify-content: center; /* Align items horizontally */
+    height: 100vh; /* Full height of viewport */
 }
 
+/* Heading styles */
 h2 {
-    color: #09ffbd;
-    font-size: 23px;
+    color: #09ffbd; /* Heading color */
+    font-size: 23px; /* Font size */
 }
 
+/* Form styles */
 form {
-    width: 400px;
-    padding: 40px;
-    background-color: rgba(0, 0, 0, 0.8);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
+    width: 400px; /* Form width */
+    padding: 40px; /* Padding */
+    background-color: rgba(0, 0, 0, 0.8); /* Background color with transparency */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Box shadow */
+    border-radius: 10px; /* Border radius */
 }
 
+/* Label styles */
 label {
-    display: block;
-    margin-bottom: 8px;
-    color: rgb(98, 0, 255);
-    animation: fadeIn 1.5s ease-out;
+    display: block; /* Display as block */
+    margin-bottom: 8px; /* Margin bottom */
+    color: rgb(98, 0, 255); /* Label color */
+    animation: fadeIn 1.5s ease-out; /* Fade-in animation */
 }
 
+/* Animation for label letters */
 .label-with-animation::before {
-    content: "";
-    display: inline-block;
-    overflow: hidden;
-    white-space: nowrap;
-    animation: revealLetters 1.5s ease-out forwards;
+    content: ""; /* Empty content */
+    display: inline-block; /* Display as inline block */
+    overflow: hidden; /* Hide overflowing content */
+    white-space: nowrap; /* Prevent wrapping */
+    animation: revealLetters 1.5s ease-out forwards; /* Reveal letters animation */
 }
 
+/* Animation delay for specific labels */
 #usernamelabel::before {
-    animation-delay: 0.5s;
+    animation-delay: 0.5s; /* Delay for username label animation */
 }
-
-
 
 #passwordlabel::before {
-    animation-delay: 1.3s;
+    animation-delay: 1.3s; /* Delay for password label animation */
 }
 
-
+/* Input styles */
 input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 16px;
-    box-sizing: border-box;      
+    width: 100%; /* Full width */
+    padding: 10px; /* Padding */
+    margin-bottom: 16px; /* Margin bottom */
+    box-sizing: border-box; /* Box sizing */
 }
 
+/* Button styles */
 button {
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-    background: transparent;
-    outline: none;
-    border: 0;
-    color: #fff;
-    letter-spacing: 0.1em;
-    font-weight: bold;
-    font-family: monospace;
-    font-size: 16px;
-    padding: 14px 16px;
-    cursor: pointer;
+    position: relative; /* Positioning */
+    overflow: hidden; /* Hide overflowing content */
+    z-index: 1; /* Z-index */
+    background: transparent; /* Transparent background */
+    outline: none; /* No outline */
+    border: 0; /* No border */
+    color: #fff; /* Text color */
+    letter-spacing: 0.1em; /* Letter spacing */
+    font-weight: bold; /* Font weight */
+    font-family: monospace; /* Font family */
+    font-size: 16px; /* Font size */
+    padding: 14px 16px; /* Padding */
+    cursor: pointer; /* Cursor pointer */
 }
 
+/* Styles for button hover effect */
 button:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.2);
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 0.3s ease-in-out;
-    z-index: -1;
+    content: ''; /* Empty content */
+    position: absolute; /* Positioning */
+    top: 0; /* Top position */
+    left: 0; /* Left position */
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background: rgba(255, 255, 255, 0.2); /* Background color with transparency */
+    transform: scaleX(0); /* Scale to 0 initially */
+    transform-origin: right; /* Transform origin */
+    transition: transform 0.3s ease-in-out; /* Transition */
+    z-index: -1; /* Z-index */
 }
 
+/* Button hover effect */
 button:hover:before {
-    transform: scaleX(1);
-    transform-origin: left;
+    transform: scaleX(1); /* Scale to 1 on hover */
+    transform-origin: left; /* Transform origin */
 }

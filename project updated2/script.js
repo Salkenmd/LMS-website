@@ -1,3 +1,4 @@
+// Function to compare titles for sorting
 function compareTitles(a, b) {
     if (a.textContent < b.textContent) {
         return -1;
@@ -8,6 +9,7 @@ function compareTitles(a, b) {
     }
 }
 
+// Function to perform bubble sort on an array of elements
 function bubbleSort(arr) {
     let len = arr.length;
     let swapped;
@@ -24,6 +26,7 @@ function bubbleSort(arr) {
     } while (swapped);
 }
 
+// Function to sort the table by title
 function sortTable() {
     const table = document.getElementById("books-table");
     const rows = table.rows;
@@ -34,10 +37,12 @@ function sortTable() {
     table.innerHTML = "<thead><tr><th>Title</th><th>Quantity</th></thead>" + tbody.outerHTML;
 }
 
+// Event listener for sort button click
 document.getElementById("sort-button").addEventListener("click", function() {
     sortTable();
 });
 
+// Event listener for search input
 document.getElementById("search-input").addEventListener("input", function() {
     const searchTerm = this.value.trim();
     const rows = document.querySelectorAll("#books-table tbody tr");
