@@ -10,6 +10,13 @@ function isStrongPassword(password) {
     return hasLower && hasUpper && hasDigit && hasSpecial && lengthCheck;
 }
 
+window.onload = function() {
+  document.getElementById("registrationForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    validateForm();
+  });
+}
+
 // Function to validate the form
 function validateForm() {
     const form = document.getElementById("registrationForm"); // Get the form element
