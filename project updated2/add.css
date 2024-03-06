@@ -1,0 +1,97 @@
+body {
+    background-color: #212121;
+    background: linear-gradient(to right, #000000, rgba(0, 0, 0, 0.5));
+    color: #fff;
+    font-family: Arial, sans-serif;
+    letter-spacing: 0.02em;
+}
+
+form {
+    width: 400px;
+    padding: 40px;
+    background-color: rgba(0, 0, 0, 0.8);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    margin: 50px auto;
+    animation: fadeIn 1.5s ease-out;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #fff;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.3);
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus {
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><polygon points='0,6 10,6 5,11'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 35px;
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #09ffbd;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+input[type="submit"]:hover {
+    background-color: #00ffa2;
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.flex-container button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #09ffbd;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.flex-container button:hover {
+    background-color: #00ffa2;
+}
