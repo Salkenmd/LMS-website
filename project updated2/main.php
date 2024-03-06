@@ -20,11 +20,10 @@ if ($conn->connect_error) {
 $sql = "SELECT * FROM Book";
 
 // Handle saving book title when form submitted
-if (isset($_POST['save_book_title'])) {
-    $bookTitle = $_POST['book_title'];
-    $_SESSION['selectedBookTitle'] = $bookTitle;
-    header("Location: book.php"); // Redirect to book.php
-    exit; // Stop further execution
+if (isset($_POST['save_book_title']) && !empty($_POST['book_title'])) {
+    $_SESSION['book_title'] = $_POST['book_title'];
+    header("Location: book.php");
+    exit;
 }
 
 // Execute the SQL query
@@ -52,8 +51,8 @@ if (!$result) {
     
     <!-- Form to save book title -->
     <form action="main.php" method="post">
-        <input type="text" id="book-title-input" name="book_title" placeholder="Enter book title...">
-        <button type="submit" name="save_book_title">Save Book Title</button>
+    <input type="text" id="book-title-input" name="book_title" placeholder="Enter book title...">
+    <button type="submit" name="save_book_title">Save Book Title</button>
     </form>
     
     <!-- Display books in a table -->
