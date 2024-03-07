@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->execute();
 
     // Redirect to the main page or display a success message
-    header("Location: welcome.php");
+    header("Location: main.php");
     exit(); // Terminate script execution after redirection
 }
 ?>
