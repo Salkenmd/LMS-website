@@ -51,6 +51,7 @@ if ($bookTitle) {
 $conn->close();
 ?>
 <!DOCTYPE html>
+
 <html>
 <head>
     <title>Book</title>
